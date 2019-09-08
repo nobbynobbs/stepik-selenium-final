@@ -36,7 +36,7 @@ def options(request, headless, user_language):
     return options
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def browser(options):
     browser = webdriver.Chrome(options=options)
     browser.maximize_window()
