@@ -1,0 +1,12 @@
+### IDE and Editors
+.idea/
+.vscode/
+
+### python compiled files
+*.py[co]
+
+### virtualenv folders
+venv/
+.venv/
+virtualenv/
+.virtualenv/
