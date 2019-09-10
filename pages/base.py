@@ -22,6 +22,10 @@ class BasePage():
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
 
+    def should_be_authorized_user(self):
+        err = "User icon is not presented, probably unauthorised user"
+        assert self._is_element_present(*BasePageLocators.USER_ICON), err
+
     def should_be_login_link(self):
         want_true = self._is_element_present(*BasePageLocators.LOGIN_LINK)
         error_msg = "Login link is not presented" 

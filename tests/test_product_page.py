@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 
 from pages.product_page import ProductPage
@@ -22,7 +24,6 @@ links = [
     "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9",
 ]
 
-link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 
 @pytest.mark.parametrize("link", links)
 def test_guest_can_add_product_into_cart(link, browser):
@@ -34,22 +35,44 @@ def test_guest_can_add_product_into_cart(link, browser):
     page.total_should_be_equal_to_price()
 
 
+@pytest.mark.logged_user
+class TestUserAddToBasketFromProductPage:
+    
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        self.browser = browser
+
+        login_page = LoginPage(browser, "http://selenium1py.pythonanywhere.com/accounts/login/")
+        login_page.open()
+        email, password = f"{uuid.uuid4().hex}@fakemail.com", uuid.uuid4().hex
+        login_page.register_new_user(email, password)
+
+    def test_user_cant_see_success_massage(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        page.should_not_be_success_message()
+
+    def test_user_can_add_product_into_cart(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        page.add_product_into_cart()
+        page.success_message_should_contain_product_name()
+        page.total_should_be_equal_to_price()
+
+
 @pytest.mark.xfail(reason="broken by design")
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
     page.add_product_into_cart()
     page.should_not_be_success_message()
 
 
-def test_guest_cant_see_success_massage(browser):
-    page = ProductPage(browser, link)
-    page.open()
-    page.should_not_be_success_message()
-
-
 @pytest.mark.xfail(reason="broken by design")
 def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
     page = ProductPage(browser, link)
     page.open()
     page.add_product_into_cart()
