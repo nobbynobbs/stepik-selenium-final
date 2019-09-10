@@ -14,6 +14,10 @@ class BasePage():
         self.browser = browser
         self.url = url
 
+    def click_cart_button(self):
+        cart_link = self.browser.find_element(*BasePageLocators.CART_LINK)
+        cart_link.click()
+
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
