@@ -7,11 +7,21 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote import webdriver
 
+from pages.locators import BasePageLocators
 
 class BasePage():
     def __init__(self, browser: webdriver.WebDriver, url: str):
         self.browser = browser
         self.url = url
+
+    def go_to_login_page(self):
+        login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        login_link.click()
+
+    def should_be_login_link(self):
+        want_true = self._is_element_present(*BasePageLocators.LOGIN_LINK)
+        error_msg = "Login link is not presented" 
+        assert want_true, error_msg
 
     def open(self): 
         self.browser.get(self.url)
