@@ -1,7 +1,7 @@
 import pytest
 
-from pages.main import MainPage
-from pages.login import LoginPage
+from pages.main_page import MainPage
+from pages.login_page import LoginPage
 from pages.cart_page import CartPage
 from pages.cart_page import EMPTY_CART_MESSAGES
 

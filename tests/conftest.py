@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 
 ALLOWED_LANGUAGES = ('es', 'fr', 'ru', 'en', )
 
+
 def pytest_addoption(parser):
     """add support for new command line arguments"""
     parser.addoption(

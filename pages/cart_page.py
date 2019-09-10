@@ -1,4 +1,4 @@
-from pages.base import BasePage
+from pages.base_page import BasePage
 from pages.locators import CartPageLocators
 
 EMPTY_CART_MESSAGES = {
@@ -7,6 +7,7 @@ EMPTY_CART_MESSAGES = {
     "fr": "Votre panier est vide. Continuer ses achats",
     "es": "Tu carrito esta vacío. Continuar sus compras",
 }
+
 
 class CartPage(BasePage):
 

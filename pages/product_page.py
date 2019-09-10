@@ -1,4 +1,4 @@
-from pages.base import BasePage
+from pages.base_page import BasePage
 from pages.locators import ProductPageLocators
 
 
@@ -7,7 +7,7 @@ class ProductPage(BasePage):
     def add_product_into_cart(self):
         button = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_BUTTON)
         button.click()
-    
+
     def should_be_success_message(self):
         message = "success message is not presented, but should be"
         assert self._is_element_present(*ProductPageLocators.SUCCESS_MESSAGE, timeout=1), message
@@ -26,7 +26,7 @@ class ProductPage(BasePage):
             *ProductPageLocators.PRODUCT_IN_SUCCESS_MESSAGE).text
         message = "product name in the alert doesn't match product name in description"
         assert product_name == product_name_in_message, message
-        
+
     def total_should_be_equal_to_price(self):
         price = self.browser.find_element(*ProductPageLocators.PRICE).text
         info = self.browser.find_element(*ProductPageLocators.TOTAL_MESSAGE).text
