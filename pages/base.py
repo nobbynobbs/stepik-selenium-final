@@ -16,13 +16,8 @@ class BasePage():
     def open(self): 
         self.browser.get(self.url)
 
-    def _is_element_present(self, how, what):
-        try:
-            # TODO: wrap with WebDriverWait
-            self.browser.find_element(how, what)
-        except NoSuchElementException:
-            return False
-        return True
+    def _is_element_present(self, how, what, timeout=4):
+        return not self._is_not_element_present(how, what, timeout)
 
     def _is_not_element_present(self, how, what, timeout=4):
         try:

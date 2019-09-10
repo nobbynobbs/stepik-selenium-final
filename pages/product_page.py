@@ -8,9 +8,17 @@ class ProductPage(BasePage):
         button = self.browser.find_element(*ProductPageLocators.ADD_TO_CART_BUTTON)
         button.click()
     
+    def should_be_success_message(self):
+        message = "success message is not presented, but should be"
+        assert self._is_element_present(*ProductPageLocators.SUCCESS_MESSAGE, timeout=1), message
+
     def should_not_be_success_message(self):
         message = "success message is presented, but should not be"
         assert self._is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE, timeout=1), message
+
+    def success_message_should_disappear(self):
+        message = "success message still present, but should disappear"
+        assert self._is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), message
 
     def success_message_should_contain_product_name(self):
         product_name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
@@ -23,4 +31,4 @@ class ProductPage(BasePage):
         price = self.browser.find_element(*ProductPageLocators.PRICE).text
         info = self.browser.find_element(*ProductPageLocators.TOTAL_MESSAGE).text
         message = "total price in the alert doesn't match the product price"
-        assert price in info
+        assert price in info, message
